@@ -9,7 +9,7 @@
         Title="" Height="400" Width="350"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True" ShowInTaskbar="False" ResizeMode="NoResize"  Activated="Window_Activated" Deactivated="Window_Deactivated" Closing="Window_Closing" 
-        WindowStyle="None"
+        Topmost="True"
 
         >
     

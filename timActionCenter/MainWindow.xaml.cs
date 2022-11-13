@@ -55,7 +55,7 @@ namespace timActionCenter
             else
             {
                 this.Show();
-                this.Focus();
+                this.Activate();
             }
         }
 
