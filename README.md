@@ -11,6 +11,7 @@ I have made a few tools that just makes my life with Windows easier. One of them
 So it came to my mind, that there would be more stuff like this that other people would want too. So I wanted to take the challenge of creating a customizable "Action Center" with simple commands like this. 
 
 This would stay in the tray icon just like how EarTrumpet works. ~~I am using Winforms, so the UI won't look good as WinUI, but it will look quite good.~~ We upgraded the project to WPF and now the UI is highly customizable and currently we are looking for a good way to add Acrylic/Mica to the UI.
+
 ![image](https://i.imgur.com/hsJkG56.gif)
 
 Oh, oh! it knows your System Accent Color too!
