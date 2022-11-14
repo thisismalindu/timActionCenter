@@ -4,6 +4,7 @@ using Microsoft.Windows.Themes;
 using ModernWpf;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Runtime.InteropServices;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace timActionCenter
 {
@@ -33,8 +36,10 @@ namespace timActionCenter
         public MainWindow()
         {
             InitializeComponent();
+            Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\timActionCenter\\Themes\\");
+
             this.Hide();
-            
+
             this.Top = System.Windows.SystemParameters.WorkArea.Height - this.Height - 10;
             this.Left = System.Windows.SystemParameters.WorkArea.Width - this.Width - 10;
 
@@ -43,8 +48,6 @@ namespace timActionCenter
             notifyIcon.Visible = true;
             notifyIcon.Click += new System.EventHandler(notifyIcon_Click);
         }
-
-   
 
         private void notifyIcon_Click(object? sender, EventArgs e)
         {
@@ -86,10 +89,12 @@ namespace timActionCenter
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            getWallpaper();
             if (buttonClicked[1])
             {
                 buttonClicked[1] = false;
                 ((System.Windows.Controls.Button)sender).Style = this.FindResource("DefaultButtonStyle") as Style;
+                setDarkTheme();
             }
             else
             {
@@ -97,6 +102,60 @@ namespace timActionCenter
                 ((System.Windows.Controls.Button)sender).Style = this.FindResource("AccentButtonStyle") as Style;
 
                 buttonClicked[1] = true;
+                setLightTheme();
+            }
+            setWallpaper();
+        }
+
+        private string stream;
+        private void setDarkTheme()
+        {
+            Process.Start(System.AppDomain.CurrentDomain.BaseDirectory + "\\ThemeSwitcher.exe", "dark.theme");
+
+            lblTheme.Text = "Theme (Dark)";
+
+            notifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.AppDomain.CurrentDomain.BaseDirectory + "\\settings.ico");
+
+        }
+        private void setLightTheme()
+        {
+            Process.Start(System.AppDomain.CurrentDomain.BaseDirectory + "\\ThemeSwitcher.exe", "light.theme");
+
+            lblTheme.Text = "Theme (Light)";
+
+            notifyIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.AppDomain.CurrentDomain.BaseDirectory + "\\settings-light.ico");
+
+        }
+
+        private void getWallpaper()
+        {
+            File.Copy(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Windows\\Themes\\TranscodedWallpaper", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\timActionCenter\\Themes\\TranscodedWallpaper",true);
+        }
+        private void setWallpaper()
+        {
+            wait(5000);
+
+            Process.Start(System.AppDomain.CurrentDomain.BaseDirectory + "\\RefreshWallpaper.exe", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\timActionCenter\\Themes\\TranscodedWallpaper");
+        }
+
+        public void wait(int milliseconds)
+        {
+            var timer1 = new System.Windows.Forms.Timer();
+            if (milliseconds == 0 || milliseconds < 0) return;
+
+            timer1.Interval = milliseconds;
+            timer1.Enabled = true;
+            timer1.Start();
+
+            timer1.Tick += (s, e) =>
+            {
+                timer1.Enabled = false;
+                timer1.Stop();
+            };
+
+            while (timer1.Enabled)
+            {
+                System.Windows.Forms.Application.DoEvents();
             }
         }
 

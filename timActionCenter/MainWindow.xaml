@@ -23,7 +23,7 @@
             </StackPanel>
             <StackPanel>
                 <Button x:Name="btn2" Content="" HorizontalAlignment="Center" Height="50" Width="100" FontFamily="Segoe Fluent Icons"  Margin="5" Click="Button_Click_1"/>
-                <TextBlock HorizontalAlignment="Center">Theme</TextBlock>
+                <TextBlock x:Name="lblTheme" HorizontalAlignment="Center">Theme</TextBlock>
             </StackPanel>
             <StackPanel>
                 <Button x:Name="btn3" Content="" HorizontalAlignment="Center" Height="50" Width="100" FontFamily="Segoe Fluent Icons"  Margin="5" Click="Button_Click_2"/>
