@@ -1,7 +1,7 @@
 
 
 # timActionCenter
-An alternative Action Center for all Windows Versions.
+An alternative Action Center for Windows.
 
 ![This is how it looks like right now](https://i.imgur.com/Idvlvep.png)
 
@@ -17,12 +17,16 @@ This would stay in the tray icon just like how EarTrumpet works. ~~I am using Wi
 Oh, oh! it knows your System Accent Color too!
 
 ## Download
-### Currently : 
+
+Download from the [Releases page](https://github.com/thisismalindu/timActionCenter/releases).
+
+## Currently : 
 
  - Proxy Settings can be turned on and off
  - Change Dark/Light system theme 
 
-Download from the [Releases page](https://github.com/thisismalindu/timActionCenter/releases).
+### Tested on Windows 10 and Windows 11.
+
 ## To-do :
  - Add More Settings.
  - Ability to reflect System Settings (like when user changed theme through System's Settings and yet the app shows the one choosed via the app).
