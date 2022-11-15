@@ -50,7 +50,7 @@ namespace timActionCenter
 
         private void notifyIcon_Click(object? sender, EventArgs e)
         {
-            
+
             if (IsVisible)
             {
             }
@@ -63,8 +63,6 @@ namespace timActionCenter
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            this.Show();
-
             updateBtn1Color();
         }
 
