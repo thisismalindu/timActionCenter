@@ -50,9 +50,9 @@ namespace timActionCenter
 
         private void notifyIcon_Click(object? sender, EventArgs e)
         {
-            if (this.IsVisible)
+            
+            if (IsVisible)
             {
-                this.Hide();
             }
             else
             {
@@ -61,7 +61,22 @@ namespace timActionCenter
             }
         }
 
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            this.Show();
 
+            updateBtn1Color();
+        }
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            notifyIcon.Dispose();
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -118,7 +133,7 @@ namespace timActionCenter
         }
         private void setLightTheme()
         {
-            Process.Start(System.AppDomain.CurrentDomain.BaseDirectory + "\\ThemeSwitcher.exe", "light.theme");
+            Process.Start(System.AppDomain.CurrentDomain.BaseDirectory + "\\ThemeSwitcher.exe", "aero.theme");
 
             lblTheme.Text = "Theme (Light)";
 
@@ -128,7 +143,7 @@ namespace timActionCenter
 
         private void getWallpaper()
         {
-            File.Copy(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Windows\\Themes\\TranscodedWallpaper", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\timActionCenter\\Themes\\TranscodedWallpaper",true);
+            File.Copy(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Windows\\Themes\\TranscodedWallpaper", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\timActionCenter\\Themes\\TranscodedWallpaper", true);
         }
         private void setWallpaper()
         {
@@ -136,6 +151,79 @@ namespace timActionCenter
 
             Process.Start(System.AppDomain.CurrentDomain.BaseDirectory + "\\RefreshWallpaper.exe", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\timActionCenter\\Themes\\TranscodedWallpaper");
         }
+
+
+
+        //Work in Progress
+        private void createProperThemeFile(string darkOrLight, string wallpaperPath)
+        {
+            StreamReader sr = new StreamReader(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Microsoft\Windows\Themes\Custom.theme");
+
+            string content = sr.ReadToEnd();
+
+            int index = content.IndexOf("Wallpaper=");
+
+            string firstPart;
+
+            firstPart = content.Substring(0, index);
+
+            string wallpaper = $"Wallpaper={wallpaperPath}";
+
+
+
+            string filePath = System.AppDomain.CurrentDomain.BaseDirectory + $"{darkOrLight}.theme";
+            File.Create(filePath);
+            StreamWriter sw = new StreamWriter(filePath);
+            firstPart = @"; Copyright � Microsoft Corp.
+
+[Theme]
+; Windows - IDS_THEME_DISPLAYNAME_THEMEA
+DisplayName=Custom Theme
+ThemeId={981A87EA-96D6-43D4-A4F1-B643CB94E424}
+
+; Computer - SHIDI_SERVER
+[CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\DefaultIcon]
+DefaultValue=%SystemRoot%\System32\imageres.dll,-109
+
+; UsersFiles - SHIDI_USERFILES
+[CLSID\{59031A47-3F72-44A7-89C5-5595FE6B30EE}\DefaultIcon]
+DefaultValue=%SystemRoot%\System32\imageres.dll,-123
+
+; Network - SHIDI_MYNETWORK
+[CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\DefaultIcon]
+DefaultValue=%SystemRoot%\System32\imageres.dll,-25
+
+; Recycle Bin - SHIDI_RECYCLERFULL SHIDI_RECYCLER
+[CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\DefaultIcon]
+Full=%SystemRoot%\System32\imageres.dll,-54
+Empty=%SystemRoot%\System32\imageres.dll,-55
+
+[Control Panel\Cursors]
+AppStarting=%SystemRoot%\cursors\aero_working.ani
+Arrow=%SystemRoot%\cursors\aero_arrow.cur
+Crosshair=
+Hand=%SystemRoot%\cursors\aero_link.cur
+Help=%SystemRoot%\cursors\aero_helpsel.cur
+IBeam=
+No=%SystemRoot%\cursors\aero_unavail.cur
+NWPen=%SystemRoot%\cursors\aero_pen.cur
+SizeAll=%SystemRoot%\cursors\aero_move.cur
+SizeNESW=%SystemRoot%\cursors\aero_nesw.cur
+SizeNS=%SystemRoot%\cursors\aero_ns.cur
+SizeNWSE=%SystemRoot%\cursors\aero_nwse.cur
+SizeWE=%SystemRoot%\cursors\aero_ew.cur
+UpArrow=%SystemRoot%\cursors\aero_up.cur
+Wait=%SystemRoot%\cursors\aero_busy.ani
+DefaultValue=Windows Default
+
+[Control Panel\Desktop]
+";
+            sw.Write(firstPart);
+            sw.Write(wallpaper);
+
+        }
+
+
 
         public void wait(int milliseconds)
         {
@@ -270,10 +358,7 @@ namespace timActionCenter
             }
         }
 
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            updateBtn1Color();
-        }
+
 
         private void updateBtn1Color()
         {
@@ -292,14 +377,6 @@ namespace timActionCenter
                 btn1.Style = this.FindResource("DefaultButtonStyle") as Style;
             }
         }
-        private void Window_Deactivated(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            notifyIcon.Dispose();
-        }
     }
 }
