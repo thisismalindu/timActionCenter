@@ -248,7 +248,7 @@ DefaultValue=Windows Default
         {
             if (buttonClicked[2])
             {
-                buttonClicked[0] = false;
+                buttonClicked[2] = false;
                 ((System.Windows.Controls.Button)sender).Style = this.FindResource("DefaultButtonStyle") as Style;
             }
             else
@@ -262,18 +262,19 @@ DefaultValue=Windows Default
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            if (buttonClicked[3])
-            {
-                buttonClicked[3] = false;
-                ((System.Windows.Controls.Button)sender).Style = this.FindResource("DefaultButtonStyle") as Style;
-            }
-            else
-            {
+            Process.Start("C:\\Users\\thisismalindu\\AppData\\Roaming\\thisismalindu\\Symbol Picker\\SymbolPicker.exe");
+            //if (buttonClicked[3])
+            //{
+            //    buttonClicked[3] = false;
+            //    ((System.Windows.Controls.Button)sender).Style = this.FindResource("DefaultButtonStyle") as Style;
+            //}
+            //else
+            //{
 
-                ((System.Windows.Controls.Button)sender).Style = this.FindResource("AccentButtonStyle") as Style;
+            //    ((System.Windows.Controls.Button)sender).Style = this.FindResource("AccentButtonStyle") as Style;
 
-                buttonClicked[3] = true;
-            }
+            //    buttonClicked[3] = true;
+            //}
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
