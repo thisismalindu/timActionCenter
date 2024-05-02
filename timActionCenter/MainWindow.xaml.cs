@@ -246,18 +246,20 @@ DefaultValue=Windows Default
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (buttonClicked[2])
-            {
-                buttonClicked[2] = false;
-                ((System.Windows.Controls.Button)sender).Style = this.FindResource("DefaultButtonStyle") as Style;
-            }
-            else
-            {
+            //if (buttonClicked[2])
+            //{
+            //    buttonClicked[2] = false;
+            //    ((System.Windows.Controls.Button)sender).Style = this.FindResource("DefaultButtonStyle") as Style;
 
-                ((System.Windows.Controls.Button)sender).Style = this.FindResource("AccentButtonStyle") as Style;
+            //}
+            //else
+            //{
 
-                buttonClicked[2] = true;
-            }
+            //    ((System.Windows.Controls.Button)sender).Style = this.FindResource("AccentButtonStyle") as Style;
+
+            //    buttonClicked[2] = true;
+            //}
+            Process.Start("shutdown.exe", "/h");
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
