@@ -1,33 +1,56 @@
-
-
 # timActionCenter
-An alternative Action Center for Windows.
 
-![This is how it looks like right now](https://i.imgur.com/Idvlvep.png)
+A customizable alternative Action Center for Windows.
 
-## Intro
-I have made a few tools that just makes my life with Windows easier. One of them is called ProxyEnabler and it just sits on top of my screen and I can click ON or OFF to turn the proxy settings on and off. Sometimes I use a Proxy and sometimes I don't. So I need to have the ability to quickly do that. Like how you would turn Wifi On and Off in the Windows Action Center.
+![timActionCenter](https://i.imgur.com/Idvlvep.png)
 
-So it came to my mind, that there would be more stuff like this that other people would want too. So I wanted to take the challenge of creating a customizable "Action Center" with simple commands like this. 
+## About
 
-This would stay in the tray icon just like how EarTrumpet works. ~~I am using Winforms, so the UI won't look good as WinUI, but it will look quite good.~~ We upgraded the project to WPF and now the UI is highly customizable and currently we are looking for a good way to add Acrylic/Mica to the UI.
+timActionCenter started from a simple problem I had while using Windows.
 
-![image](https://i.imgur.com/hsJkG56.gif)
+I sometimes need to turn my proxy settings on and off. To make this easier, I created a small utility called **ProxyEnabler**, which stayed on top of the screen and allowed me to toggle the proxy with a single click.
 
-Oh, oh! it knows your System Accent Color too!
+That gave me the idea that there are probably many other Windows settings that people would like to access just as quickly, similar to turning Wi-Fi or Bluetooth on and off from the Windows Action Center.
+
+So I decided to build **timActionCenter**: a customizable Action Center where useful Windows settings and actions can be accessed from one place.
+
+The application runs from the **system tray**, similar to tools such as EarTrumpet.
+
+timActionCenter was originally built using **Windows Forms**, but the project was later migrated to **WPF** to provide more control over the interface and make the UI easier to customize.
+
+![timActionCenter Demo](https://i.imgur.com/hsJkG56.gif)
+
+The interface also automatically detects and uses your **Windows system accent color**.
+
+## Features
+
+Currently, timActionCenter can:
+
+* Enable or disable Windows proxy settings
+* Switch between Windows Dark and Light themes
+* Detect and use the current system accent color
+* Run directly from the Windows system tray
+
+### Compatibility
+
+Tested on:
+
+* Windows 10
+* Windows 11
 
 ## Download
 
-Download from the [Releases page](https://github.com/thisismalindu/timActionCenter/releases).
+Download the latest version from the [Releases page](https://github.com/thisismalindu/timActionCenter/releases).
 
-## Currently : 
+## Planned Improvements
 
- - Proxy Settings can be turned on and off
- - Change Dark/Light system theme 
+* Add more Windows settings and quick actions
+* Automatically update the interface when a setting is changed outside timActionCenter
+* Add Acrylic or Mica effects to the interface
+* Continue improving UI customization
 
-### Tested on Windows 10 and Windows 11.
+## Status
 
-## To-do :
- - Add More Settings.
- - Ability to reflect System Settings (like when user changed theme through System's Settings and yet the app shows the one choosed via the app).
- - Add Acrylic or Mica.
+timActionCenter is still a work in progress.
+
+The project started as a small utility for my own use, and I am continuing to expand it with features that can make commonly used Windows settings faster and easier to access.
