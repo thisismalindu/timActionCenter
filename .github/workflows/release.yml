@@ -1,0 +1,55 @@
+name: Publish release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Build release package
+        shell: pwsh
+        run: |
+          $version = $env:GITHUB_REF_NAME -replace '^v', ''
+          .\scripts\package-release.ps1 -Version $version -Runtime win-x64
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: timActionCenter-${{ github.ref_name }}-win-x64
+          path: |
+            artifacts/*.zip
+            artifacts/*.sha256
+
+      - name: Create GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $archives = @(Get-ChildItem -Path artifacts\*.zip -File)
+          $checksums = @(Get-ChildItem -Path artifacts\*.sha256 -File)
+          if ($archives.Count -ne 1 -or $checksums.Count -ne 1) {
+            throw "Expected exactly one release archive and checksum."
+          }
+          $archive = $archives[0]
+          $checksum = $checksums[0]
+          gh release create $env:GITHUB_REF_NAME `
+            $archive.FullName `
+            $checksum.FullName `
+            --verify-tag `
+            --generate-notes `
+            --title "timActionCenter $env:GITHUB_REF_NAME"

@@ -14,6 +14,8 @@ public sealed class TileConfiguration
 
     public TileBehavior Behavior { get; set; } = TileBehavior.Action;
 
+    public bool IsVisible { get; set; } = true;
+
     public TileCommand? Command { get; set; }
 
     public TileCommand? StateCommand { get; set; }
@@ -21,4 +23,21 @@ public sealed class TileConfiguration
     public TileCommand? EnableCommand { get; set; }
 
     public TileCommand? DisableCommand { get; set; }
+
+    public TileConfiguration Clone()
+    {
+        return new TileConfiguration
+        {
+            Id = Id,
+            Title = Title,
+            Description = Description,
+            IconGlyph = IconGlyph,
+            Behavior = Behavior,
+            IsVisible = IsVisible,
+            Command = Command?.Clone(),
+            StateCommand = StateCommand?.Clone(),
+            EnableCommand = EnableCommand?.Clone(),
+            DisableCommand = DisableCommand?.Clone(),
+        };
+    }
 }

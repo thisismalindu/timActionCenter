@@ -15,7 +15,6 @@
     Deactivated="OnWindowDeactivated"
     ResizeMode="NoResize"
     ShowInTaskbar="False"
-    Topmost="True"
     WindowStartupLocation="Manual"
     mc:Ignorable="d">
 
@@ -74,6 +73,19 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
+
+        <Button
+            Width="40"
+            Height="40"
+            Margin="0,0,58,12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            AutomationProperties.Name="Open settings"
+            Click="OnSettingsClick"
+            Content="&#xE713;"
+            FontFamily="{x:Static presentation:SegoeFluentIconProvider.FontFamily}"
+            FontSize="18"
+            ToolTip="Settings" />
 
         <Button
             Width="40"

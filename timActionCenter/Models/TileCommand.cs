@@ -11,4 +11,16 @@ public sealed class TileCommand
     public CommandWindowMode WindowMode { get; set; } = CommandWindowMode.Normal;
 
     public bool WaitForExit { get; set; }
+
+    public TileCommand Clone()
+    {
+        return new TileCommand
+        {
+            FileName = FileName,
+            Arguments = Arguments,
+            WorkingDirectory = WorkingDirectory,
+            WindowMode = WindowMode,
+            WaitForExit = WaitForExit,
+        };
+    }
 }

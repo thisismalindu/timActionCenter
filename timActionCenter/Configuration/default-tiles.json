@@ -7,6 +7,7 @@
       "description": "Enable or disable the Windows proxy",
       "iconGlyph": "\uE968",
       "behavior": "Toggle",
+      "isVisible": true,
       "stateCommand": {
         "fileName": "powershell.exe",
         "arguments": "-NoProfile -WindowStyle Hidden -Command \"if ((Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings' -Name ProxyEnable -ErrorAction SilentlyContinue).ProxyEnable -eq 1) { exit 0 } else { exit 1 }\"",
@@ -32,6 +33,7 @@
       "description": "Switch between the Windows light and dark themes",
       "iconGlyph": "\uE793",
       "behavior": "Toggle",
+      "isVisible": true,
       "stateCommand": {
         "fileName": "powershell.exe",
         "arguments": "-NoProfile -WindowStyle Hidden -Command \"if ((Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize' -Name AppsUseLightTheme -ErrorAction SilentlyContinue).AppsUseLightTheme -ne 0) { exit 0 } else { exit 1 }\"",
@@ -57,6 +59,7 @@
       "description": "Hibernate this computer",
       "iconGlyph": "\uE7E8",
       "behavior": "Action",
+      "isVisible": true,
       "command": {
         "fileName": "shutdown.exe",
         "arguments": "/h",
