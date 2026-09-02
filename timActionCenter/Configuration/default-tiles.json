@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "tiles": [
+    {
+      "id": "18d86421-bcbf-4f57-8068-a0186361fa0b",
+      "title": "Proxy",
+      "description": "Enable or disable the Windows proxy",
+      "iconGlyph": "\uE968",
+      "behavior": "Toggle",
+      "stateCommand": {
+        "fileName": "powershell.exe",
+        "arguments": "-NoProfile -WindowStyle Hidden -Command \"if ((Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings' -Name ProxyEnable -ErrorAction SilentlyContinue).ProxyEnable -eq 1) { exit 0 } else { exit 1 }\"",
+        "windowMode": "Hidden",
+        "waitForExit": true
+      },
+      "enableCommand": {
+        "fileName": "powershell.exe",
+        "arguments": "-NoProfile -WindowStyle Hidden -Command \"Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings' -Name ProxyEnable -Type DWord -Value 1\"",
+        "windowMode": "Hidden",
+        "waitForExit": true
+      },
+      "disableCommand": {
+        "fileName": "powershell.exe",
+        "arguments": "-NoProfile -WindowStyle Hidden -Command \"Set-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings' -Name ProxyEnable -Type DWord -Value 0\"",
+        "windowMode": "Hidden",
+        "waitForExit": true
+      }
+    },
+    {
+      "id": "3bcb268e-bb39-4cdd-b89c-afc1be4b61d1",
+      "title": "Theme",
+      "description": "Switch between the Windows light and dark themes",
+      "iconGlyph": "\uE793",
+      "behavior": "Toggle",
+      "stateCommand": {
+        "fileName": "powershell.exe",
+        "arguments": "-NoProfile -WindowStyle Hidden -Command \"if ((Get-ItemProperty -Path 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize' -Name AppsUseLightTheme -ErrorAction SilentlyContinue).AppsUseLightTheme -ne 0) { exit 0 } else { exit 1 }\"",
+        "windowMode": "Hidden",
+        "waitForExit": true
+      },
+      "enableCommand": {
+        "fileName": "powershell.exe",
+        "arguments": "-NoProfile -WindowStyle Hidden -Command \"$source = Join-Path $env:APPDATA 'Microsoft\\Windows\\Themes\\TranscodedWallpaper'; $directory = Join-Path $env:LOCALAPPDATA 'timActionCenter\\Themes'; New-Item -ItemType Directory -Force -Path $directory | Out-Null; $target = Join-Path $directory 'TranscodedWallpaper'; Copy-Item -LiteralPath $source -Destination $target -Force; & '{AppDirectory}\\ThemeSwitcher.exe' 'aero.theme'; Start-Sleep -Seconds 5; & '{AppDirectory}\\RefreshWallpaper.exe' $target\"",
+        "windowMode": "Hidden",
+        "waitForExit": true
+      },
+      "disableCommand": {
+        "fileName": "powershell.exe",
+        "arguments": "-NoProfile -WindowStyle Hidden -Command \"$source = Join-Path $env:APPDATA 'Microsoft\\Windows\\Themes\\TranscodedWallpaper'; $directory = Join-Path $env:LOCALAPPDATA 'timActionCenter\\Themes'; New-Item -ItemType Directory -Force -Path $directory | Out-Null; $target = Join-Path $directory 'TranscodedWallpaper'; Copy-Item -LiteralPath $source -Destination $target -Force; & '{AppDirectory}\\ThemeSwitcher.exe' 'dark.theme'; Start-Sleep -Seconds 5; & '{AppDirectory}\\RefreshWallpaper.exe' $target\"",
+        "windowMode": "Hidden",
+        "waitForExit": true
+      }
+    },
+    {
+      "id": "4d7733e1-19fa-45d1-8f7b-b8dd822b2c11",
+      "title": "Hibernate",
+      "description": "Hibernate this computer",
+      "iconGlyph": "\uE7E8",
+      "behavior": "Action",
+      "command": {
+        "fileName": "shutdown.exe",
+        "arguments": "/h",
+        "windowMode": "Hidden",
+        "waitForExit": false
+      }
+    }
+  ]
+}
