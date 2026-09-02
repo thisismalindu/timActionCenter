@@ -103,10 +103,11 @@ try
 
     Invoke-Git push $Remote "HEAD:refs/heads/$currentBranch"
 
-    $existingTagCommit = & git rev-list -n 1 $tagName 2>$null
+    $localTag = @(Invoke-Git tag --list $tagName)
 
-    if ($LASTEXITCODE -eq 0)
+    if ($localTag.Count -gt 0)
     {
+        $existingTagCommit = [string](Invoke-Git rev-list -n 1 $tagName | Select-Object -First 1)
         $headCommit = (Invoke-Git rev-parse HEAD | Select-Object -First 1).Trim()
 
         if ($existingTagCommit.Trim() -ne $headCommit)
